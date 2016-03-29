@@ -4,17 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>shengyangbb的博客</title>
+  <title>iOS网络请求MKNetworkKit中willSendRequest异常 | shengyangbb的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="事iOS开发工作，喜爱编程。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="shengyangbb的博客">
-<meta property="og:url" content="https://github.com/shengyangyu/shengyangyu.github.io/index.html">
+  <meta name="description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
+系统请求1//第一步，创建URL
+NSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS网络请求MKNetworkKit中willSendRequest异常">
+<meta property="og:url" content="https://github.com/shengyangyu/shengyangyu.github.io/2016/03/29/iOS网络请求MKNetworkKit中willSendRequest异常/index.html">
 <meta property="og:site_name" content="shengyangbb的博客">
-<meta property="og:description" content="事iOS开发工作，喜爱编程。">
+<meta property="og:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
+系统请求1//第一步，创建URL
+NSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/re">
+<meta property="og:updated_time" content="2016-03-29T09:45:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shengyangbb的博客">
-<meta name="twitter:description" content="事iOS开发工作，喜爱编程。">
+<meta name="twitter:title" content="iOS网络请求MKNetworkKit中willSendRequest异常">
+<meta name="twitter:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
+系统请求1//第一步，创建URL
+NSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/re">
   
   
     <link rel="icon" href="/favicon.png">
@@ -127,9 +134,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-iOS网络请求MKNetworkKit中willSendRequest异常" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS网络请求MKNetworkKit中willSendRequest异常" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/03/29/iOS网络请求MKNetworkKit中willSendRequest异常/" class="article-date">
@@ -145,12 +150,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/29/iOS网络请求MKNetworkKit中willSendRequest异常/">iOS网络请求MKNetworkKit中willSendRequest异常</a>
+    <h1 class="article-title" itemprop="name">
+      iOS网络请求MKNetworkKit中willSendRequest异常
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -179,16 +191,19 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/29/我的第一篇博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">我的第一篇博客</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -197,67 +212,28 @@
 
 
 
-
-
-
-  
-    <article id="post-我的第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/29/我的第一篇博客/" class="article-date">
-  	<time datetime="2016-03-29T08:15:11.000Z" itemprop="datePublished">03 29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/29/我的第一篇博客/">我的第一篇博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>域名是上个月申请的，今天开始写第一篇博客。拖了这么久，首先是因为刚好开始<em>邮配送</em>项目的开发，目前已进入测试阶段；其次是一方面想学习Swift这门语言，看了几期视频和中文翻译的官方教程，算是了结的一点点，目前是想通过试着写几个小demo来增理解。</p>
-<p>现在有些时间可以看看博客的东西了。</p>
-<p>之前是设置了博客的模版，比较目前使用的这个<a href="https://github.com/litten/hexo-theme-yilia">yilia</a>。设置的还是属于非常精简的，希望等过些时候再优化下吧，毕竟不能一口吃成大胖子。</p>
-<p>先这样了。加油！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="iOS网络请求MKNetworkKit中willSendRequest异常" data-title="iOS网络请求MKNetworkKit中willSendRequest异常" data-url="https://github.com/shengyangyu/shengyangyu.github.io/2016/03/29/iOS网络请求MKNetworkKit中willSendRequest异常/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shengyangbb"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
 
-
-
-
-
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -281,8 +257,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
