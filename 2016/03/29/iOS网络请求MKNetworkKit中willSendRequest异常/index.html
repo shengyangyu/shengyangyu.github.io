@@ -16,7 +16,7 @@
 <meta property="og:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
 
 系统请求1//第一步，创建URLNSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/re">
-<meta property="og:updated_time" content="2016-03-30T02:27:22.000Z">
+<meta property="og:updated_time" content="2016-03-30T02:52:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS网络请求MKNetworkKit中willSendRequest异常">
 <meta name="twitter:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
@@ -188,8 +188,7 @@
 <p>{<br>Accept = “<em>/</em>“;<br>“Accept-Encoding” = “gzip, deflate”;<br>“Accept-Language” = “en-us”;<br>}<br>对比了本地self.request和inRequest，虽然有不同的参数，但是即使本地设置了也不能生效，此处有疑问，只能单独处理该域名下的请求。</p>
 <p>-(NSURLRequest<em>)connection:(NSURLConnection</em>)connection<br>willSendRequest:(NSURLRequest*)request<br>redirectResponse:(NSURLResponse*)redirectResponse;<br>{<br>if(redirectResponse){<br>// we don’t use the new request built for us, except for the URL<br>NSURL*newURL=[request URL];<br>// Previously, store the original request in _originalRequest.<br>// We rely on that here!<br>NSMutableURLRequest*newRequest=[_originalRequest mutableCopy];<br>[newRequest setURL:newURL];<br>returnnewRequest;<br>}else{<br>returnrequest;<br>}<br>}</p>
 </blockquote>
-<p>查找到其他博文提到的代码，我代码里的redirectResponse是nil，似乎是后台的接口不支持这种处理。<br>只用实现了这个block才会有自定义，加上有博文指出这个代理方法的作用是重定向，感觉是MK中有写鸡肋，不过做后台的同事应该在处理上也有问题，特此记录，与君共勉！</p>
-<p><img src="" alt="">(<a href="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg" target="_blank" rel="external">http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg</a>)</p>
+<p>查找到其他博文提到的代码，我代码里的redirectResponse是nil，似乎是后台的接口不支持这种处理。<br>只用实现了这个block才会有自定义，加上有博文指出这个代理方法的作用是重定向，感觉是MK中有写鸡肋，不过做后台的同事应该在处理上也有问题，特此记录，与君共勉！<br><img src="" alt="">(<a href="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg){ImgCap}测试图片{/ImgCap}" target="_blank" rel="external">http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg){ImgCap}测试图片{/ImgCap}</a></p>
 
       
     </div>
