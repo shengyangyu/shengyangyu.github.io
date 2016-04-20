@@ -7,19 +7,25 @@
   <title>iOS网络请求MKNetworkKit中willSendRequest异常 | shengyangbb的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
-系统请求1//第一步，创建URLNSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/res">
+系统请求1
+//第一步，创建URL
+NSURL\*url = \[NSURLURLWithString:@&amp;quot;https://tms.beta.ule.com/deliveryApp/r">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS网络请求MKNetworkKit中willSendRequest异常">
 <meta property="og:url" content="https://github.com/shengyangyu/shengyangyu.github.io/2016/03/29/iOS网络请求MKNetworkKit中willSendRequest异常/index.html">
 <meta property="og:site_name" content="shengyangbb的博客">
 <meta property="og:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
-系统请求1//第一步，创建URLNSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/res">
+系统请求1
+//第一步，创建URL
+NSURL\*url = \[NSURLURLWithString:@&amp;quot;https://tms.beta.ule.com/deliveryApp/r">
 <meta property="og:image" content="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg">
-<meta property="og:updated_time" content="2016-04-20T03:16:27.000Z">
+<meta property="og:updated_time" content="2016-04-20T03:39:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS网络请求MKNetworkKit中willSendRequest异常">
 <meta name="twitter:description" content="由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。
-系统请求1//第一步，创建URLNSURL*url = [NSURLURLWithString:@”https://tms.beta.ule.com/deliveryApp/router/res">
+系统请求1
+//第一步，创建URL
+NSURL\*url = \[NSURLURLWithString:@&amp;quot;https://tms.beta.ule.com/deliveryApp/r">
 <meta name="twitter:image" content="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg">
   
   
@@ -167,19 +173,104 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>由于公司用的是MKNetworkKit第三方的网络请求框架，最近在做一个新项目的时候有一个接口是POST一个mobile字段来获取验证码，但是却发现，不论是系统的请求还是AFNETWork都可以正常调用。</p>
-<p>系统请求1<br>//第一步，创建URL<br>NSURL*url = [NSURLURLWithString:@”<a href="https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode" target="_blank" rel="external">https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode</a>“];</p>
-<p>//第二步，创建请求<br>NSMutableURLRequest*request = [[NSMutableURLRequestalloc]initWithURL:urlcachePolicy:NSURLRequestUseProtocolCachePolicytimeoutInterval:10];<br>[request setHTTPMethod:@”POST”];<br>NSStringstr =@”mobile=**********“;//设置参数<br>NSData*data = [strdataUsingEncoding:NSUTF8StringEncoding];<br>[request setHTTPBody:data];</p>
-<p>//第三步，连接服务器<br>NSURLConnection*connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];<br>NSLog(@”%@”,request.allHTTPHeaderFields);<br>[connection start];</p>
-<p>系统请求2<br>//获得NSURLSession对象<br>NSURLSession*session = [NSURLSessionsharedSession];<br>//创建请求<br>NSMutableURLRequest*request = \[NSMutableURLRequestrequestWithURL:[NSURLURLWithString:@”<a href="https://tms.beta.ule.com/deliveryApp/router/rest" target="_blank" rel="external">https://tms.beta.ule.com/deliveryApp/router/rest</a>“]];<br>request.HTTPMethod =@”POST”;//请求方法<br>request.HTTPBody = [@”method=delivery.deliverystaff.sendsmscode&amp;mobile=***********“dataUsingEncoding:NSUTF8StringEncoding];//请求体<br>//创建任务<br>NSURLSessionDataTasktask = [sessiondataTaskWithRequest:requestcompletionHandler:^(NSDatadata,NSURLResponseresponse,NSErrorerror) {<br>NSLog(@”%@”, [NSJSONSerializationJSONObjectWithData:dataoptions:kNilOptionserror:nil]);<br>}];<br>//启动任务<br>[task resume];</p>
-<p>MKNetworkKit<br>UleMK_MKNetworkOperation*op = [[UleMK_MKNetworkOperationalloc]initWithURLString:@”<a href="https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode&quot;params:nilhttpMethod:@&quot;POST" target="_blank" rel="external">https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode&quot;params:nilhttpMethod:@&quot;POST</a>“];</p>
-<p>[op addParams:@{@”mobile”:@”***********“}];<br>[op addCompletionHandler:^(UleMK_MKNetworkOperation*completedOperation) {<br>NSLog(@”%@_“,[completedOperationresponseString]);<br>} errorHandler:^(UleMK_MKNetworkOperationcompletedOperation,NSErrorerror) {<br>NSLog(@”%@”,error);<br>}];<br>[op start];<br>UleMK_MKNetworkEngine* engine = [[UleMK_MKNetworkEnginealloc]initWithHostName:@”tms.beta.ule.com”];<br>UleMK_MKNetworkOperation*op = [engine operationWithPath:@”deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode”params:@{@”mobile”:@”***********“}httpMethod:@”POST”ssl:YES];<br>[op addCompletionHandler:^(UleMK_MKNetworkOperation*completedOperation) {<br>NSLog(@”%@_“,[completedOperationresponseString]);<br>} errorHandler:^(UleMK_MKNetworkOperationcompletedOperation,NSErrorerror) {<br>NSLog(@”%@”,error);<br>}];<br>[engine enqueueOperation: op];</p>
-<p>在缓慢的调试过程中发现，拼接一个完整的URL，POST参数为nil的时候，是可以获取到验证码信息的，那么就把目标放在POST参数上了。  </p>
+<pre><code>系统请求1
+//第一步，创建URL
+NSURL\*url = \[NSURLURLWithString:@&quot;https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode&quot;];
+
+//第二步，创建请求
+NSMutableURLRequest\*request = \[\[NSMutableURLRequestalloc]initWithURL:urlcachePolicy:NSURLRequestUseProtocolCachePolicytimeoutInterval:10];
+\[request setHTTPMethod:@&quot;POST&quot;];
+NSStringstr =@&quot;mobile=\*\*\*\*\*\*\*\*\*\*&quot;;//设置参数
+NSData\*data = \[strdataUsingEncoding:NSUTF8StringEncoding];
+\[request setHTTPBody:data];
+
+//第三步，连接服务器
+NSURLConnection\*connection = \[\[NSURLConnection alloc]initWithRequest:request delegate:self];
+NSLog(@&quot;%@&quot;,request.allHTTPHeaderFields);
+\[connection start];
+
+系统请求2
+//获得NSURLSession对象
+NSURLSession\*session = \[NSURLSessionsharedSession];
+//创建请求
+NSMutableURLRequest\*request = \\\[NSMutableURLRequestrequestWithURL:[NSURLURLWithString:@&quot;https://tms.beta.ule.com/deliveryApp/router/rest&quot;]];
+request.HTTPMethod =@&quot;POST&quot;;//请求方法
+request.HTTPBody = \[@&quot;method=delivery.deliverystaff.sendsmscode&amp;mobile=\*\*\*\*\*\*\*\*\*\*\*&quot;dataUsingEncoding:NSUTF8StringEncoding];//请求体
+//创建任务
+NSURLSessionDataTasktask = \[sessiondataTaskWithRequest:requestcompletionHandler:^(NSDatadata,NSURLResponseresponse,NSErrorerror) {
+NSLog(@&quot;%@&quot;, \[NSJSONSerializationJSONObjectWithData:dataoptions:kNilOptionserror:nil]);
+}];
+//启动任务
+\[task resume];
+
+MKNetworkKit
+UleMK\_MKNetworkOperation\*op = \[\[UleMK\_MKNetworkOperationalloc]initWithURLString:@&quot;https://tms.beta.ule.com/deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode&quot;params:nilhttpMethod:@&quot;POST&quot;];
+
+\[op addParams:@{@&quot;mobile&quot;:@&quot;\*\*\*\*\*\*\*\*\*\*\*&quot;}];
+\[op addCompletionHandler:^(UleMK\_MKNetworkOperation\*completedOperation) {
+NSLog(@&quot;%@\_&quot;,\[completedOperationresponseString]);
+} errorHandler:^(UleMK\_MKNetworkOperationcompletedOperation,NSErrorerror) {
+NSLog(@&quot;%@&quot;,error);
+}];
+\[op start];
+UleMK\_MKNetworkEngine\* engine = \[\[UleMK\_MKNetworkEnginealloc]initWithHostName:@&quot;tms.beta.ule.com&quot;];
+UleMK\_MKNetworkOperation\*op = \[engine operationWithPath:@&quot;deliveryApp/router/rest?method=delivery.deliverystaff.sendsmscode&quot;params:@{@&quot;mobile&quot;:@&quot;\*\*\*\*\*\*\*\*\*\*\*&quot;}httpMethod:@&quot;POST&quot;ssl:YES];
+\[op addCompletionHandler:^(UleMK\_MKNetworkOperation\*completedOperation) {
+NSLog(@&quot;%@\_&quot;,\[completedOperationresponseString]);
+} errorHandler:^(UleMK\_MKNetworkOperationcompletedOperation,NSErrorerror) {
+NSLog(@&quot;%@&quot;,error);
+}];
+\[engine enqueueOperation: op];
+</code></pre><p>在缓慢的调试过程中发现，拼接一个完整的URL，POST参数为nil的时候，是可以获取到验证码信息的，那么就把目标放在POST参数上了。  </p>
 <p>最后发现在<a href="http://stackoverflow.com/questions/1446509/handling-redirects-correctly-with-nsurlconnection" target="_blank" rel="external">MKNetworkKit</a>中有一个</p>
-<p>-(NSURLRequest)connection: (NSURLConnection)inConnection<br>willSendRequest: (NSURLRequest*)inRequest<br>redirectResponse: (NSURLResponse*)inRedirectResponse;<br>{<br>// *******start<br>// yushengyang 20160316 tms.beta.ule.com不支持重定向<br>if([inRequest.URL.absoluteStringrangeOfString:@”tms.beta.ule.com”].location!=NSNotFound|| [inRequest.URL.absoluteStringrangeOfString:@”tms.ule.com”].location!=NSNotFound) {<br>returninRequest;<br>}<br>// *******end<br>NSMutableURLRequest*r = [self.requestmutableCopy];<br>if(inRedirectResponse) {<br>[rsetURL: [inRequestURL]];<br>}else{<br>// Note that we need to configure the Accept-Language header this late in processing<br>// because NSURLRequest adds a default Accept-Language header late in the day, so we<br>// have to undo that here.<br>// For discussion see:<br>//<a href="http://lists.apple.com/archives/macnetworkprog/2009/Sep/msg00022.html" target="_blank" rel="external">http://lists.apple.com/archives/macnetworkprog/2009/Sep/msg00022.html</a><br>//<a href="http://stackoverflow.com/questions/5695914/nsurlrequest-where-an-app-can-find-the-default-headers-for-http-request" target="_blank" rel="external">http://stackoverflow.com/questions/5695914/nsurlrequest-where-an-app-can-find-the-default-headers-for-http-request</a><br>NSString* accept_language =self.shouldSendAcceptLanguageHeader? [selflanguagesFromLocale] :nil;<br>[rsetValue:accept_languageforHTTPHeaderField:@”Accept-Language”];<br>}<br>returnr;<br>}</p>
-<p>在粗体标记中，第一个是我加的代码，因为这个问题可能做后段接口的同事引起的，所以我只屏蔽该接口。第二个是框架写的，这里不太明白为何每次都要重新弄一个request，虽然该request就是代理中的，但是不知道为何，只要用的不是inRequest而是self.request通过copy而来的，都会导致收不到验证码。<br>看了看AFNetwork中的处理<br>－ (NSURLRequest)connection:(NSURLConnection)connection<br>willSendRequest:(NSURLRequest*)request<br>redirectResponse:(NSURLResponse*)redirectResponse<br>{<br>if(self.redirectResponse) {<br>returnself.redirectResponse(connection, request, redirectResponse);<br>}else{<br>returnrequest;<br>}<br>｝<br>po self.request.allHTTPHeaderFields<br>{<br>}<br>po inRequest.allHTTPHeaderFields</p>
-<p>{<br>Accept = “/“;<br>“Accept-Encoding” = “gzip, deflate”;<br>“Accept-Language” = “en-us”;<br>}<br>对比了本地self.request和inRequest，虽然有不同的参数，但是即使本地设置了也不能生效，此处有疑问，只能单独处理该域名下的请求。</p>
-<p>-(NSURLRequest<em>)connection:(NSURLConnection</em>)connection willSendRequest:(NSURLRequest*)request<br>redirectResponse:(NSURLResponse*)redirectResponse;<br>{<br>if(redirectResponse){<br>// we don’t use the new request built for us, except for the URL<br>NSURL*newURL=[request URL];<br>// Previously, store the original request in _originalRequest.<br>// We rely on that here!<br>NSMutableURLRequest*newRequest=[_originalRequest mutableCopy];<br>[newRequest setURL:newURL];<br>returnnewRequest;<br>}else{<br>returnrequest;<br>}<br>}</p>
-<p>查找到其他博文提到的代码，我代码里的redirectResponse是nil，似乎是后台的接口不支持这种处理。<br>只用实现了这个block才会有自定义，加上有博文指出这个代理方法的作用是重定向，感觉是MK中有写鸡肋，不过做后台的同事应该在处理上也有问题，特此记录，与君共勉！</p>
+<pre><code>-(NSURLRequest)connection: (NSURLConnection)inConnection
+willSendRequest: (NSURLRequest\*)inRequest
+redirectResponse: (NSURLResponse\*)inRedirectResponse;
+{
+// \*\*\*\*\*\*\*start
+// yushengyang 20160316 tms.beta.ule.com不支持重定向
+if(\[inRequest.URL.absoluteStringrangeOfString:@&quot;tms.beta.ule.com&quot;].location!=NSNotFound|| \[inRequest.URL.absoluteStringrangeOfString:@&quot;tms.ule.com&quot;].location!=NSNotFound) {
+returninRequest;
+}
+// \*\*\*\*\*\*\*end
+NSMutableURLRequest\*r = \[self.requestmutableCopy];
+if(inRedirectResponse) {
+\[rsetURL: \[inRequestURL]];
+}else{
+// Note that we need to configure the Accept-Language header this late in processing
+// because NSURLRequest adds a default Accept-Language header late in the day, so we
+// have to undo that here.
+// For discussion see:
+//http://lists.apple.com/archives/macnetworkprog/2009/Sep/msg00022.html
+//http://stackoverflow.com/questions/5695914/nsurlrequest-where-an-app-can-find-the-default-headers-for-http-request
+NSString\* accept\_language =self.shouldSendAcceptLanguageHeader? \[selflanguagesFromLocale] :nil;
+\[rsetValue:accept\_languageforHTTPHeaderField:@&quot;Accept-Language&quot;];
+}
+returnr;
+}
+</code></pre><p>在粗体标记中，第一个是我加的代码，因为这个问题可能做后段接口的同事引起的，所以我只屏蔽该接口。第二个是框架写的，这里不太明白为何每次都要重新弄一个request，虽然该request就是代理中的，但是不知道为何，只要用的不是inRequest而是self.request通过copy而来的，都会导致收不到验证码。<br>看了看AFNetwork中的处理<br>    － (NSURLRequest)connection:(NSURLConnection)connection<br>    willSendRequest:(NSURLRequest*)request<br>    redirectResponse:(NSURLResponse*)redirectResponse<br>    {<br>    if(self.redirectResponse) {<br>    returnself.redirectResponse(connection, request, redirectResponse);<br>    }else{<br>    returnrequest;<br>    }<br>    ｝<br>po self.request.allHTTPHeaderFields<br>{<br>}<br>po inRequest.allHTTPHeaderFields</p>
+<pre><code>{
+Accept = &quot;/&quot;;
+&quot;Accept-Encoding&quot; = &quot;gzip, deflate&quot;;
+&quot;Accept-Language&quot; = &quot;en-us&quot;;
+}
+</code></pre><p>对比了本地self.request和inRequest，虽然有不同的参数，但是即使本地设置了也不能生效，此处有疑问，只能单独处理该域名下的请求。</p>
+<pre><code>-(NSURLRequest*)connection:(NSURLConnection*)connection willSendRequest:(NSURLRequest\*)request
+redirectResponse:(NSURLResponse\*)redirectResponse;
+{
+if(redirectResponse){
+// we don&apos;t use the new request built for us, except for the URL
+NSURL\*newURL=\[request URL];
+// Previously, store the original request in \_originalRequest.
+// We rely on that here!
+NSMutableURLRequest\*newRequest=\[\_originalRequest mutableCopy];
+\[newRequest setURL:newURL];
+returnnewRequest;
+}else{
+returnrequest;
+}
+}
+</code></pre><p>查找到其他博文提到的代码，我代码里的redirectResponse是nil，似乎是后台的接口不支持这种处理。<br>只用实现了这个block才会有自定义，加上有博文指出这个代理方法的作用是重定向，感觉是MK中有写鸡肋，不过做后台的同事应该在处理上也有问题，特此记录，与君共勉！</p>
 <p><img src="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg" alt="测试图片" title="测试图片"></p>
 
       
