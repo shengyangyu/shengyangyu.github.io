@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>面向接口编程(POP)简单应用 | shengyangbb的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:谈谈依赖注入与面向接口编程思想。
+思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。
+首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向接口编程(POP)简单应用">
+<meta property="og:url" content="https://github.com/shengyangyu/shengyangyu.github.io/2016/04/21/面向接口编程-POP-简单应用/index.html">
+<meta property="og:site_name" content="shengyangbb的博客">
+<meta property="og:description" content="最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:谈谈依赖注入与面向接口编程思想。
+思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。
+首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者">
+<meta property="og:updated_time" content="2016-04-21T09:21:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向接口编程(POP)简单应用">
+<meta name="twitter:description" content="最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:谈谈依赖注入与面向接口编程思想。
+思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。
+首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<a href="https://github.com/shengyangyu" target="_Blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://img01.taobaocdn.com/imgextra/i1/102975691/TB2YWCacpXXXXaCXXXXXXXXXXXX-102975691.png" alt="Fork me on GitHub" data-canonical-src="http://img01.taobaocdn.com/imgextra/i1/102975691/TB2YWCacpXXXXaCXXXXXXXXXXXX-102975691.png">
+</a>
+
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/blogImg/author.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">shengyangbb</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">热爱生活，每天进步一点点</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/shengyangyu" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/3002435790/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/yu-sheng-yang" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">shengyangbb</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/blogImg/author.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">shengyangbb</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">热爱生活，每天进步一点点</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/shengyangyu" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/3002435790/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/yu-sheng-yang" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-面向接口编程-POP-简单应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/21/面向接口编程-POP-简单应用/" class="article-date">
+  	<time datetime="2016-04-21T03:40:20.000Z" itemprop="datePublished">04 21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      面向接口编程(POP)简单应用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:<a href="http://www.shellsec.com/news/10945.html" target="_blank" rel="external">谈谈依赖注入与面向接口编程思想</a>。</p>
+<p>思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。</p>
+<p>首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者需要使用模块化的架构，当其他的模块需要使用此功能时不需要，就会产生在不同的模块都需要引用这个文件了。我理解的POP在iOS开发中的应用就是这么直接.哈哈哈！</p>
+<p>使用代码来实现现刚才的功能<br>1、这种模式是我们常用的模式，会产生高耦合、引用的模式，代码如下</p>
+<pre><code>//服务实现者 甲方 ，编写一个服务类
+@interface MusicLoading: NSObject
+@end
+@implementation MusicLoading
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param {
+//do something
+}
+@end
+
+//服务使用者 乙方 ，通过接口获取服务类
+//#import &quot;MusicLoading.h&quot;
+@interface Client: NSObject
+@end
+@implementation Client
+\- (void)work {
+MusicLoading \* tMusicLoading = \[\[MusicLoading alloc\] init\];
+\[tMusicLoading requestWithUrl:nil Param:@{}\];
+}
+@end
+</code></pre><p>其实可以很直观的发现，当我Client需要实现下载music功能时，就需要引入文件，这样在我们有很多类或者模块都需要实现这个功能的时候就都需要引入文件了，当我有一天要替换MusicLoading的实现时，或者要移植代码，都是超大的工作量。</p>
+<p>下面看看使用POP编码的实现：</p>
+<pre><code>//首先，定义一个ServiceProtocol
+@protocol MusicLoadingProtocol &lt;NSObject&gt;
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param;
+@end
+
+//甲方
+@interface MusicLoadingProtocolObj: NSObject &lt;MusicLoadingProtocol&gt;
+@end
+@implementation MusicLoadingProtocolObj
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param {
+//do something
+}
+@end
+</code></pre><p>可以看到我们先是定义了一个Protocol是用来实现下载功能定义，然后使用一个实现这个Protocol的甲方来实现下载功能。</p>
+<pre><code>//乙方
+@interface Client: NSObject
+@end
+@implementation Client
+(void)work {
+    id&lt;MusicLoadingProtocol&gt; service = [[JSObjection defaultInjector] getObject:@protocol(MusicLoadingProtocol)];
+    [service requestWithUrl:nil Param:@{}];
+}
+@end
+</code></pre><p>当乙方需要使用这个功能的时候呢，这里使用了Github上一个开源库<a href="https://github.com/atomicobject/objection">JSObjection</a>，这里不深究这个库，我们只说此处的应用，其实就是获取一个实现了我们上面定义的Protocol的类，这样就能直接调用了。注意这里我们是不要引用任何和下载音乐有关的文件的，是不是很爽！！</p>
+<p>如果不愿意使用一个自己弄不明白的库，还可以这样。<br>    //乙方<br>    @interface Client1: NSObject<br>    @end<br>    @implementation Client1<br>    - (void)work {<br>    NSString *clazzName = @”MusicLoadingProtocol”;<br>    [clazzName stringByAppendingString:@”Obj”];<br>    Class serviceClazz = NSClassFromString(@”clazzName”);<br>    id<musicloadingprotocol> service = [[serviceClazz alloc init]];<br>    [service requestWithUrl:nil Param:@{}];<br>    }<br>    @end</musicloadingprotocol></p>
+<p>这里的Obj是属于一些命名的小约定，实际应用中可以不鸟他。只要自己使用自己习惯的喜欢的名字就行了，其实就是使用runtime特性，获取一个Class，之后就可以直接调用方法了。</p>
+<p>上述实现，应该只是POP的一个简单应用，更多的东西，还要等到学会了才能写。</p>
+<hr>
+<p>再补充一些别人博客里写的。<br>首先我们定义一个交通工具接口<br>    @protocol Transportation <nsobject><br>    - (void)drinking;<br>    - (void)freight;<br>    @end<br>还有一个发光体接口<br>    @protocol Irradiative <nsobject><br>    - (void)shine;<br>    @end<br>当然drinking就代表补需，汽车飞机的内部实现就是加油，马牛的内部实现就是吃草喝水什么的。freight就是装载<br>当上帝创造马的时候，让马遵守并实现这个接口:<br>    @interface Horse : NSObject<transportation><br>    @end<br>    @implementation Horse<br>    - (void)drinking {<br>    //吃草，喝果汁<br>    }<br>    - (void)freight {<br>    //停住脚步，或者半蹲，让友好的人类骑上去<br>    }<br>    @end<br>当人类创造飞机的时候，惨了，不知道去哪里找上帝沟通，又怕疏漏了什么影响了这个世界的运行规律？没事上帝给我们留下了Transportation接口，而且飞机同时还要遵守发光体接口Irradiative，于是：<br>    @interface Aircraft : NSObject<transportation, irradiative=""><br>    \@end<br>    @implementation Aircraft<br>    - (void)drinking {<br>    //加油, 92的<br>    }<br>    - (void)freight {<br>    //降落，熄火，开舱门<br>    }<br>    - (void)shine {<br>    //燃烧汽油，生物质能转化成电能，照你<br>    }<br>    @end<br>这样就实现了当类的功能不断扩充的时候，只需要添加需要实现的Protocol，这样实现的代码不会影响既有代码，因为那些代码根本没有实现我们新添加的Protocol，是不是很棒！</transportation,></transportation></nsobject></nsobject></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/20/记录生成博客文章步骤/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记录生成博客文章步骤</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="面向接口编程-POP-简单应用" data-title="面向接口编程(POP)简单应用" data-url="https://github.com/shengyangyu/shengyangyu.github.io/2016/04/21/面向接口编程-POP-简单应用/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shengyangbb"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 shengyangbb
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

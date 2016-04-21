@@ -129,6 +129,112 @@
 
       <div class="body-wrap">
   
+    <article id="post-面向接口编程-POP-简单应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/21/面向接口编程-POP-简单应用/" class="article-date">
+  	<time datetime="2016-04-21T03:40:20.000Z" itemprop="datePublished">04 21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/21/面向接口编程-POP-简单应用/">面向接口编程(POP)简单应用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:<a href="http://www.shellsec.com/news/10945.html" target="_blank" rel="external">谈谈依赖注入与面向接口编程思想</a>。</p>
+<p>思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。</p>
+<p>首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者需要使用模块化的架构，当其他的模块需要使用此功能时不需要，就会产生在不同的模块都需要引用这个文件了。我理解的POP在iOS开发中的应用就是这么直接.哈哈哈！</p>
+<p>使用代码来实现现刚才的功能<br>1、这种模式是我们常用的模式，会产生高耦合、引用的模式，代码如下</p>
+<pre><code>//服务实现者 甲方 ，编写一个服务类
+@interface MusicLoading: NSObject
+@end
+@implementation MusicLoading
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param {
+//do something
+}
+@end
+
+//服务使用者 乙方 ，通过接口获取服务类
+//#import &quot;MusicLoading.h&quot;
+@interface Client: NSObject
+@end
+@implementation Client
+\- (void)work {
+MusicLoading \* tMusicLoading = \[\[MusicLoading alloc\] init\];
+\[tMusicLoading requestWithUrl:nil Param:@{}\];
+}
+@end
+</code></pre><p>其实可以很直观的发现，当我Client需要实现下载music功能时，就需要引入文件，这样在我们有很多类或者模块都需要实现这个功能的时候就都需要引入文件了，当我有一天要替换MusicLoading的实现时，或者要移植代码，都是超大的工作量。</p>
+<p>下面看看使用POP编码的实现：</p>
+<pre><code>//首先，定义一个ServiceProtocol
+@protocol MusicLoadingProtocol &lt;NSObject&gt;
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param;
+@end
+
+//甲方
+@interface MusicLoadingProtocolObj: NSObject &lt;MusicLoadingProtocol&gt;
+@end
+@implementation MusicLoadingProtocolObj
+\- (void)requestWithUrl:(NSURL \*)url Param:(NSDictionary \*)param {
+//do something
+}
+@end
+</code></pre><p>可以看到我们先是定义了一个Protocol是用来实现下载功能定义，然后使用一个实现这个Protocol的甲方来实现下载功能。</p>
+<pre><code>//乙方
+@interface Client: NSObject
+@end
+@implementation Client
+(void)work {
+    id&lt;MusicLoadingProtocol&gt; service = [[JSObjection defaultInjector] getObject:@protocol(MusicLoadingProtocol)];
+    [service requestWithUrl:nil Param:@{}];
+}
+@end
+</code></pre><p>当乙方需要使用这个功能的时候呢，这里使用了Github上一个开源库<a href="https://github.com/atomicobject/objection">JSObjection</a>，这里不深究这个库，我们只说此处的应用，其实就是获取一个实现了我们上面定义的Protocol的类，这样就能直接调用了。注意这里我们是不要引用任何和下载音乐有关的文件的，是不是很爽！！</p>
+<p>如果不愿意使用一个自己弄不明白的库，还可以这样。<br>    //乙方<br>    @interface Client1: NSObject<br>    @end<br>    @implementation Client1<br>    - (void)work {<br>    NSString *clazzName = @”MusicLoadingProtocol”;<br>    [clazzName stringByAppendingString:@”Obj”];<br>    Class serviceClazz = NSClassFromString(@”clazzName”);<br>    id<musicloadingprotocol> service = [[serviceClazz alloc init]];<br>    [service requestWithUrl:nil Param:@{}];<br>    }<br>    @end</musicloadingprotocol></p>
+<p>这里的Obj是属于一些命名的小约定，实际应用中可以不鸟他。只要自己使用自己习惯的喜欢的名字就行了，其实就是使用runtime特性，获取一个Class，之后就可以直接调用方法了。</p>
+<p>上述实现，应该只是POP的一个简单应用，更多的东西，还要等到学会了才能写。</p>
+<hr>
+<p>再补充一些别人博客里写的。<br>首先我们定义一个交通工具接口<br>    @protocol Transportation <nsobject><br>    - (void)drinking;<br>    - (void)freight;<br>    @end<br>还有一个发光体接口<br>    @protocol Irradiative <nsobject><br>    - (void)shine;<br>    @end<br>当然drinking就代表补需，汽车飞机的内部实现就是加油，马牛的内部实现就是吃草喝水什么的。freight就是装载<br>当上帝创造马的时候，让马遵守并实现这个接口:<br>    @interface Horse : NSObject<transportation><br>    @end<br>    @implementation Horse<br>    - (void)drinking {<br>    //吃草，喝果汁<br>    }<br>    - (void)freight {<br>    //停住脚步，或者半蹲，让友好的人类骑上去<br>    }<br>    @end<br>当人类创造飞机的时候，惨了，不知道去哪里找上帝沟通，又怕疏漏了什么影响了这个世界的运行规律？没事上帝给我们留下了Transportation接口，而且飞机同时还要遵守发光体接口Irradiative，于是：<br>    @interface Aircraft : NSObject<transportation, irradiative=""><br>    \@end<br>    @implementation Aircraft<br>    - (void)drinking {<br>    //加油, 92的<br>    }<br>    - (void)freight {<br>    //降落，熄火，开舱门<br>    }<br>    - (void)shine {<br>    //燃烧汽油，生物质能转化成电能，照你<br>    }<br>    @end<br>这样就实现了当类的功能不断扩充的时候，只需要添加需要实现的Protocol，这样实现的代码不会影响既有代码，因为那些代码根本没有实现我们新添加的Protocol，是不是很棒！</transportation,></transportation></nsobject></nsobject></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-记录生成博客文章步骤" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
