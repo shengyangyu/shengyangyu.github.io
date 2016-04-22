@@ -16,7 +16,7 @@
 <meta property="og:description" content="最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:谈谈依赖注入与面向接口编程思想。
 思想和原理我就不再重复了，实际上我没怎么看明白(哈哈哈)。在这里我就讲代码贴下，最后说下我的一些小想法。
 首先当我们要实现一个下载music文件的功能，而且这个功能在项目中有可能会在不同的模块频繁的使用，更有甚者">
-<meta property="og:updated_time" content="2016-04-22T06:18:50.000Z">
+<meta property="og:updated_time" content="2016-04-22T07:04:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面向接口编程(POP)简单应用">
 <meta name="twitter:description" content="最近想整理下项目中的代码，遇到了不少的问题，也是在找各种大牛的解决方案。看到了一篇关于POP的博文，算是理论和实践结合的比较明白的，在这里记录下，原博文:谈谈依赖注入与面向接口编程思想。
@@ -220,21 +220,19 @@ MusicLoading \* tMusicLoading = \[\[MusicLoading alloc\] init\];
 <p>这里的Obj是属于一些命名的小约定，实际应用中可以不鸟他。只要自己使用自己习惯的喜欢的名字就行了，其实就是使用runtime特性，获取一个Class，之后就可以直接调用方法了。</p>
 <p>上述实现，应该只是POP的一个简单应用，更多的东西，还要等到学会了才能写。</p>
 <hr>
-<p>再补充一些别人博客里写的。<br>首先我们定义一个交通工具接口<br>    @protocol Transportation <nsobject><br>    - (void)drinking;<br>    - (void)freight;<br>    @end<br>还有一个发光体接口<br>    @protocol Irradiative <nsobject><br>    - (void)shine;<br>    @end<br>当然drinking就代表补需，汽车飞机的内部实现就是加油，马牛的内部实现就是吃草喝水什么的。freight就是装载<br>当上帝创造马的时候，让马遵守并实现这个接口:<br>    @interface Horse : NSObject<transportation><br>    @end<br>    @implementation Horse<br>    - (void)drinking {<br>    //吃草，喝果汁<br>    }<br>    - (void)freight {<br>    //停住脚步，或者半蹲，让友好的人类骑上去<br>    }<br>    @end<br>当人类创造飞机的时候，惨了，不知道去哪里找上帝沟通，又怕疏漏了什么影响了这个世界的运行规律？没事上帝给我们留下了Transportation接口，而且飞机同时还要遵守发光体接口Irradiative，于是：<br>    @interface Aircraft : NSObject<transportation, irradiative=""><br>    \@end<br>    @implementation Aircraft<br>    - (void)drinking {<br>    //加油, 92的<br>    }<br>    - (void)freight {<br>    //降落，熄火，开舱门<br>    }<br>    - (void)shine {<br>    //燃烧汽油，生物质能转化成电能，照你<br>    }<br>    @end<br>这样就实现了当类的功能不断扩充的时候，只需要添加需要实现的Protocol，这样实现的代码不会影响既有代码，因为那些代码根本没有实现我们新添加的Protocol，是不是很棒！</transportation,></transportation></nsobject></nsobject></p>
+<p>再补充一些别人博客里写的。<br>首先我们定义一个交通工具接口<br>    @protocol Transportation <nsobject><br>    - (void)drinking;<br>    - (void)freight;<br>    @end<br>还有一个发光体接口<br>    @protocol Irradiative <nsobject><br>    - (void)shine;<br>    @end<br>当然drinking就代表补需，汽车飞机的内部实现就是加油，马牛的内部实现就是吃草喝水什么的。freight就是装载<br>当上帝创造马的时候，让马遵守并实现这个接口:<br>    @interface Horse : NSObject\<transportation\><br>    @end<br>    @implementation Horse<br>    - (void)drinking {<br>    //吃草，喝果汁<br>    }<br>    - (void)freight {<br>    //停住脚步，或者半蹲，让友好的人类骑上去<br>    }<br>    @end<br>当人类创造飞机的时候，惨了，不知道去哪里找上帝沟通，又怕疏漏了什么影响了这个世界的运行规律？没事上帝给我们留下了Transportation接口，而且飞机同时还要遵守发光体接口Irradiative，于是：<br>    @interface Aircraft : NSObject\<transportation, irradiative\=""><br>    @end<br>    @implementation Aircraft<br>    - (void)drinking {<br>    //加油, 92的<br>    }<br>    - (void)freight {<br>    //降落，熄火，开舱门<br>    }<br>    - (void)shine {<br>    //燃烧汽油，生物质能转化成电能，照你<br>    }<br>    @end<br>这样就实现了当类的功能不断扩充的时候，只需要添加需要实现的Protocol，这样实现的代码不会影响既有代码，因为那些代码根本没有实现我们新添加的Protocol，是不是很棒！</transportation,></transportation\></nsobject></nsobject></p>
 <hr>
 <p>我又重新看了下 <a href="https://github.com/panghaijiao">庞海礁的个人空间</a>中<a href="http://www.olinone.com/?p=429" target="_blank" rel="external">《接口编程那些事》</a>并且下载了附带的<a href="https://github.com/panghaijiao/ProtocolProgrammingDemo">demo</a><br>在<code>NSObject+ApiServiceProtocol.m</code>文件中有两个方法：<br>1:<code>\- (void)requestGetNetWithUrl:(NSURL \*)url Param:(NSDictionary \*)param;</code><br>2:<code>\- (void)requestPostNetWithUrl:(NSURL \*)url Param:(NSDictionary \*)param;</code><br>这两个方法的名字就能解释他的意义了，分别是实现get和post方法，但是呢在实现中，强行使用了<br>1: <code>id&lt;ApiService&gt; apiSrevice = [[JSObjection createInjector] getObject:[GetApiService class]];</code><br>2: <code>id&lt;ApiService&gt; apiSrevice = [[JSObjection createInjector] getObject:[PostApiService class]];</code><br>这样在该文件里就会引入<br>    #import “GetApiService.h”<br>    #import “PostApiService.h”<br>显然这里是有问题的，在他博客的下方评论里也有读者提出了这个问题，他是这么回答的：<br>    当时写demo时为了图简单，就直接通过[GetApiService class]获取该对象，从而误导了大家。正常情况下，此处我们只需要获取到遵从该协议的对象就行了，所以可以使用Objection库的protocol的方式获取GetApiService对象，你可以尝试下<br>意思大概是，他偷懒了。现在的问题是由于他建立的文件区分了GET和POST，如果完成独立的功能，那么<code>ApiServicePassthrough</code>就不能使用<code>- (instancetype) initWithApiService:(id&lt;ApiServiceProtocol&gt;)apiService;</code>原因很简单，<code>ApiServiceProtocol</code>初始化后不能指向性逆向调用到GET或者POST方法。</p>
 <p>我根据上面所说的步骤，使用runtime功能实现了<code>“使用Protocol获取对象”</code>并且实现了demo的功能具体代码可见<a href="https://github.com/shengyangyu/ProtocolProgrammingDemo">我的Demo</a>。</p>
-<p>好了，最后实力分析一波。这是海礁大大的原话：<br>    1、正常发起Service请求时，调用者需要直接依赖该对象，起不到解耦的目的。当业务变动需要重构该对象时，所有引用该对象的地方都需要改动。如何做到既能满足业务又能兼容变化？抽象接口也许是一个不错的选择，以接口依赖的方式取代对象依赖。</p>
-<pre><code>2、通过接口的定义，调用者可以不再关心ApiService对象，也无需了解其有哪些属性。即使需要重构替换新的对象，调用逻辑也不受任何影响。调用接口往往比访问对象属性更加稳定可靠
-
+<p>好了，最后实力分析一波。这是海礁大大的原话：</p>
+<pre><code>1、正常发起Service请求时，调用者需要直接依赖该对象，起不到解耦的目的。当业务变动需要重构该对象时，所有引用该对象的地方都需要改动。如何做到既能满足业务又能兼容变化？抽象接口也许是一个不错的选择，以接口依赖的方式取代对象依赖。
+2、通过接口的定义，调用者可以不再关心ApiService对象，也无需了解其有哪些属性。即使需要重构替换新的对象，调用逻辑也不受任何影响。调用接口往往比访问对象属性更加稳定可靠
 3、定义ApiServiceProtocol可以隐藏ApiService对象，但是受限于ApiService对象的存在，业务需求发生变化时，仍然需要修改ApiService逻辑代码。如何实现在不修改已有ApiService业务代码的条件下满足新的业务需求？
-
 4、参考Swift抽象协议的设计理念，可以使用Protocol抽象对象，毕竟调用者也不关心具体实现类。Protocol可以定义方法，可是属性的问题怎么解决？此时，装饰器模式也许正好可以解决该问题，让我们试着继续改造ApiService
-
 5、经过Protocol的改造，ApiService对象化身为ApiService接口，其不再依赖于任何对象，做到了真正的接口依赖取代对象依赖，具有更强的业务兼容性
-
 6、对象可以继承对象，Protocol也可以继承Protocol，并且可以继承多个Protocol，Protocol具有更强的灵活性。某一天，业务需求变更需要用到新的Post请求时，可以不用修改 GetApiService一行代码，定义一个新的 PostApiService实现Post请求即可，避免了对象里面出现过多的if-else代码，也保证了代码的整洁性。
 </code></pre><p>原来意思就是可以轻松替换，并且其实是可以并存的，demo里有案例，只需加载不用的Protocol就能执行不同的方法，还真是简便呢。不过原文中的疏漏极大的增加了难度，看看我的demo或许会简单点！</p>
+<p>最后的最后，推荐一篇<a href="http://limboy.me/ios/2014/04/15/use-objection-to-decouple-ios-project.html" target="_blank" rel="external">使用objection来模块化开发iOS项目</a>这里是结合了Objection的使用，说实话代码的的确确优雅。赞一个！</p>
 
       
     </div>
