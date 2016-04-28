@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>关于统一设置UIViewController backgroudColor引发的问题 | shengyangbb的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在做一些项目的重构，说是重构其实就是看不下去自己之前写的代码了，加上有很多大牛分享的思想，就虎头虎脑的开始建新工程了。
+打开旧工程，第一目标就是BaseViewController了。在Casa大神的博客里说到过没有必要使用派生，也就是继承了。但是呢，博文中有两个点：  
+1.使用派生比不使用派生更容易增加业务方的使用成本
+2.不使用派生手段一样也能达到统一设置的目的
+这两点情况博客都有说明，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于统一设置UIViewController backgroudColor引发的问题">
+<meta property="og:url" content="https://github.com/shengyangyu/shengyangyu.github.io/2016/04/27/关于统一设置UIViewController-backgroudColor引发的问题/index.html">
+<meta property="og:site_name" content="shengyangbb的博客">
+<meta property="og:description" content="最近在做一些项目的重构，说是重构其实就是看不下去自己之前写的代码了，加上有很多大牛分享的思想，就虎头虎脑的开始建新工程了。
+打开旧工程，第一目标就是BaseViewController了。在Casa大神的博客里说到过没有必要使用派生，也就是继承了。但是呢，博文中有两个点：  
+1.使用派生比不使用派生更容易增加业务方的使用成本
+2.不使用派生手段一样也能达到统一设置的目的
+这两点情况博客都有说明，">
+<meta property="og:updated_time" content="2016-04-28T08:31:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于统一设置UIViewController backgroudColor引发的问题">
+<meta name="twitter:description" content="最近在做一些项目的重构，说是重构其实就是看不下去自己之前写的代码了，加上有很多大牛分享的思想，就虎头虎脑的开始建新工程了。
+打开旧工程，第一目标就是BaseViewController了。在Casa大神的博客里说到过没有必要使用派生，也就是继承了。但是呢，博文中有两个点：  
+1.使用派生比不使用派生更容易增加业务方的使用成本
+2.不使用派生手段一样也能达到统一设置的目的
+这两点情况博客都有说明，">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<a href="https://github.com/shengyangyu" target="_Blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://img01.taobaocdn.com/imgextra/i1/102975691/TB2YWCacpXXXXaCXXXXXXXXXXXX-102975691.png" alt="Fork me on GitHub" data-canonical-src="http://img01.taobaocdn.com/imgextra/i1/102975691/TB2YWCacpXXXXaCXXXXXXXXXXXX-102975691.png">
+</a>
+
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/blogImg/author.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">shengyangbb</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">热爱生活，每天进步一点点</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/shengyangyu" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/3002435790/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/yu-sheng-yang" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">shengyangbb</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/blogImg/author.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">shengyangbb</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">热爱生活，每天进步一点点</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/shengyangyu" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/3002435790/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/yu-sheng-yang" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-关于统一设置UIViewController-backgroudColor引发的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/27/关于统一设置UIViewController-backgroudColor引发的问题/" class="article-date">
+  	<time datetime="2016-04-27T09:38:19.000Z" itemprop="datePublished">04 27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于统一设置UIViewController backgroudColor引发的问题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在做一些项目的重构，说是重构其实就是看不下去自己之前写的代码了，加上有很多大牛分享的思想，就虎头虎脑的开始建新工程了。</p>
+<p>打开旧工程，第一目标就是BaseViewController了。在<a href="http://casatwy.com/iosying-yong-jia-gou-tan-viewceng-de-zu-zhi-he-diao-yong-fang-an.html" target="_blank" rel="external">Casa大神</a>的博客里说到过没有必要使用派生，也就是继承了。但是呢，博文中有两个点：  </p>
+<pre><code>1.使用派生比不使用派生更容易增加业务方的使用成本
+2.不使用派生手段一样也能达到统一设置的目的
+</code></pre><p>这两点情况博客都有说明，简单来说我们为什么要重构或者重写代码，不就是因为代码过度耦合么，那么Base的存在就是最明显的耦合，依赖的东西太多，在拆分和代码阅读上都是一个障碍。</p>
+<p>第一点是吐槽和找问题，第二点是解决方案，所以说第二点才是重点，我们一起来看看第二点。</p>
+<p>不使用派生也能做好统一的设置，博文的手段和一般的方法基本一致就是使用<code>Method Swizzling</code>具体的代码可以看这个<a href="https://gitcafe.com/casatwy/iOSViewArchDemo1" target="_blank" rel="external">demo</a>不多说。</p>
+<p>好了，以上是问题的原因和目前来说的比较理想的解决方案。现在就说说我的需求场景。上面提到过我面对的是旧工程的Base，这里面首当其冲的是什么，相信有Base的同学都有同样的痛症，就是backgroudColor，因为什么呢？在iOS更新的系统的时候，不知不觉就产生了一个问题，就是UIViewControler的默认view的backgrond Color竟然是null，这种情况只有在纯代码的时候才会有，当你使用xib或者storyboard时，是会默认设置为白色的。并且在push的时候，没有设置颜色的UIViewController实现的动画是超级恶心的。。就是恶心，不信你去试试。</p>
+<p>在这种情况下，我们就需要在UIViewController还未显示在界面上的时候就设置为白色。<a href="http://www.jianshu.com/p/bd2b9d4b01a1" target="_blank" rel="external">Method swizzling实践</a>实现了上面的想法，用黑魔法置换了viewDidLoad方法，美中不足的就是这里的设置需要等到最后一个ViewController加载才有效，并且在使用tabbar的情况下add ViewController也会启动他的实现，具体可以看看他的内容。</p>
+<p>当我看到这个解决方案的时候，说实话心里是欢喜的，毕竟我满腔热血想要实现这个东西，如果还没踏出第一步就嗝屁儿了，不是太悲伤了么。但是那句<code>if (![self isKindOfClass:NSClassFromString(@&quot;UIInputWindowController&quot;)])</code>实在是如鲠在喉啊，我每次看都觉得很不是滋味，怎么办呢。。</p>
+<p>正当我以为就这样差不多可以的时候，出现了一个问题。当时团队在做一个SDK的封装，也是一些简单的功能，在实现过程中暴露出新的问题了。在SDK里面，所有的view都需要使用灰色当背景，如果照搬那种策略的话，<em>SDK会影响到外部UIViewController的backgroudColor，这是一件非常恐怖的事！</em></p>
+<p>其实一开始能有勇气去做这个重构，就是因为有casa大神的几篇博客，今天在遇到这个问题后，我又去重新温习了一遍博文，发现其实大神早就有一个实现方案，但是呢，对于background的处理也是有我上述的问题存在的，最后我只能总结一个个人的想法了。</p>
+<p>总结：我的旧项目是使用了Base继承的策略实现了，工程中需要的一些基础设置，这种方法无疑是耦合度很高，代码移植需要牵扯很多文件，代码阅读困难的，那么我在解决第一个问题backgroundColor的时候就发现理想丰满，现实骨感，黑魔法固然好用，但是他实在太黑，一个设置就影响到了所有，这是不允许的。</p>
+<p>在实现中我的处理的方式是，如果只是SDK封装，不需要使用黑魔法来实现设置背景，从代码架构来说，设置背景颜色完全是可以放在viewDidLoad中，虽然每次新建一个需要设置一次，但这个懒目前来看，是不能偷的。</p>
+<p>如果不是SDK或者是代码量比较大的SDK及项目，是可以使用的，但是仅限于设置颜色为白色，为什么呢？</p>
+<p><code>1、因为这设置为白色不属于自定义的设计，而是在解决背景为null的bug。</code><br><code>2、设置为白色对工程是影像最小的，这也是为什么会建议SDK不要使用这个策略，如果引用该SDK的项目使用了相同的处理方法，会根据加载的顺序执行最后一个，这样就会产生错乱，比如说有人违法了我们的约定，设置了所有的页面为黄色，那么就有可能是SDK中的view变成了黄色，或引用项目变成了白色，这都不是好的结局。</code></p>
+<p>综上，可以考虑在viewDidLoad中自己写。。。大神的Demo我做了一个<a href="https://github.com/shengyangyu/YSYAspectsDemo">备份</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/21/面向接口编程-POP-简单应用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">面向接口编程(POP)简单应用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="关于统一设置UIViewController-backgroudColor引发的问题" data-title="关于统一设置UIViewController backgroudColor引发的问题" data-url="https://github.com/shengyangyu/shengyangyu.github.io/2016/04/27/关于统一设置UIViewController-backgroudColor引发的问题/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"shengyangbb"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 shengyangbb
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
